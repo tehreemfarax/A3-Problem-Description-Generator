@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import NewChatForm from "./NewChatPopUp";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { ChatSharp, DeleteForeverOutlined } from "@mui/icons-material";
+import { ChatSharp } from "@mui/icons-material";
+import logo from "../images/imgg/logo-sq.jpg";
 
 const Home = () => {
   const [chats, setChats] = useState([]);
@@ -12,6 +13,11 @@ const Home = () => {
   const [chatBarOpen, setChatBarOpen] = useState(false);
   const [selectedAssistant, setSelectedAssistant] = useState(0);
   const chatContainerRef = useRef(null); // Ref for the chat container
+
+  const handleInput = (e) => {
+    e.target.style.height = "40px"; // Reset height to default
+    e.target.style.height = `${e.target.scrollHeight}px`; // Expand dynamically
+  };
 
   const assistants = {
     Default: 0,
@@ -28,7 +34,8 @@ const Home = () => {
   // Function to scroll the chat container to the bottom
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   };
 
@@ -66,10 +73,12 @@ const Home = () => {
       const fetchedMessages = data.user_message;
 
       // Process the messages to alternate between bot and user messages
-      const processedMessages = fetchedMessages.reverse().map((message, index) => ({
-        sender: index % 2 === 0 ? "user" : "bot",
-        text: message,
-      }));
+      const processedMessages = fetchedMessages
+        .reverse()
+        .map((message, index) => ({
+          sender: index % 2 === 0 ? "user" : "bot",
+          text: message,
+        }));
 
       setMessages((prev) => ({
         ...prev,
@@ -88,28 +97,31 @@ const Home = () => {
 
   const handleTemplate = async () => {
     const activeChatName = chats.find((chat) => chat.id === activeChat)?.name;
-    
+
     if (!activeChatName) {
       console.error("No active chat selected.");
       return;
     }
-  
+
     try {
       const token = sessionStorage.getItem("updToken");
-      const response = await fetch("http://34.31.251.108:5000/download-chat-csv", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ chat_name: activeChatName }),
-      });
-  
+      const response = await fetch(
+        "http://34.31.251.108:5000/download-chat-csv",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ chat_name: activeChatName }),
+        }
+      );
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Failed to fetch CSV: ${errorText}`);
       }
-  
+
       // Convert response to Blob and create a download link
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -120,12 +132,10 @@ const Home = () => {
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
-  
     } catch (error) {
       console.error("Error downloading template:", error);
     }
   };
-  
 
   const fetchChats = async () => {
     try {
@@ -188,7 +198,7 @@ const Home = () => {
           thread_number: selectedAssistant,
         }),
       });
-      
+
       if (!response.ok) throw new Error("Failed to fetch bot response");
 
       const data = await response.json();
@@ -231,7 +241,7 @@ const Home = () => {
               onClick={() => setNewChatPopUp(true)}
               className="w-full py-2 px-4 bg-blue-600 rounded-md hover:bg-blue-500"
             >
-              New Chat
+              Nieuwe chat
             </button>
             <div className="flex-1 mt-4 overflow-y-auto">
               {chats.map((chat) => (
@@ -261,7 +271,7 @@ const Home = () => {
             onClick={() => setNewChatPopUp(true)}
             className="w-full py-2 px-4 bg-blue-600 rounded-md hover:bg-blue-500"
           >
-            New Chat
+            Nieuwe chat
           </button>
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -291,7 +301,7 @@ const Home = () => {
           {activeChat ? (
             <h2>{chats.find((chat) => chat.id === activeChat)?.name} </h2>
           ) : (
-            <h2>Select a chat or start a new one</h2>
+            <h2 className="font-semibold capitalize">Selecteer een chat of start een nieuwe</h2>
           )}
           <select
             id="assistantDropdown"
@@ -319,40 +329,63 @@ const Home = () => {
                 }`}
               >
                 <div
-                  className={`max-w-3xl px-4 py-2 rounded-lg ${
-                    msg.sender === "user"
-                      ? "bg-blue-500 text-white text-right"
-                      : "bg-gray-200 text-gray-800 text-left"
+                  className={`flex items-start ${
+                    msg.sender === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
-                  {msg.text}
+                  {msg.sender !== "user" && (
+                    <div className="flex items-center justify-center bg-gray-300 rounded-full mr-1">
+                      <img src={logo} className="w-8 h-8 rounded-2xl"/>
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-3xl px-4 py-2 rounded-lg ${
+                      msg.sender === "user"
+                        ? "bg-blue-500 text-white text-right"
+                        : "bg-gray-200 text-gray-800 text-left"
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
                 </div>
               </div>
             ))
           ) : (
             <div className="text-gray-500 text-center mt-10">
-              No chat selected
+              Geen chat geselecteerd
             </div>
           )}
         </div>
         {activeChat && (
           <div className="p-4 border-t border-gray-300 bg-gray-100">
             <div className="flex">
-              <input
-                type="text"
+              <textarea
                 value={currentMessage}
-                onChange={(e) => setCurrentMessage(e.target.value)}
+                onChange={(e) => {
+                  setCurrentMessage(e.target.value);
+                  handleInput(e);
+                }}
+                onInput={handleInput}
                 placeholder="Type a message..."
-                className="flex-1 border border-gray-300 rounded-md px-4 py-2"
+                rows={1}
+                className="flex-1 border border-gray-300 rounded-md px-4 py-2 resize-none overflow-y-auto overflow-x-hidden"
+                style={{ minHeight: "40px", maxHeight: "150px" }}
               />
+
               <button
                 onClick={sendMessage}
-                className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+                className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 mt-auto"
               >
-                Send
+                Versturen
               </button>
             </div>
-            <button className="bg-lime-600 w-40 p-2 m-2 mb-0 text-white font-bold float-left" onClick={handleTemplate}>Generate Template</button>
+
+            <button
+              className="bg-lime-600 p-2 m-2 mb-0 text-white font-bold float-left"
+              onClick={handleTemplate}
+            >
+              Sjabloon genereren
+            </button>
           </div>
         )}
       </div>

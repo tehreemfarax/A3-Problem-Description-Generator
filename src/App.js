@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
-import ProblemForm from './components/ProblemForm';
-import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -14,7 +12,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/contact-us" element={<ContactUs />} />
         </Routes>
         <Footer/>
       </div>

@@ -6,14 +6,14 @@ export default function NewChatForm({ isOpen, onClose }) {
   const [buttonName, setButtonName] = useState("CREATE")
 
   const createChat = async (event) => {
-    setButtonName("Creating Chat...")
+    setButtonName("Chat maken...")
     event.preventDefault(); // Prevent default form submission
     console.log(chatName);
     const token = sessionStorage.getItem("updToken"); // Retrieve the token from sessionStorage
     console.log(token);
     if (!token) {
-      alert("User is not authenticated.");
-      setButtonName("CREATE")
+      alert("Gebruiker is niet geverifieerd.");
+      setButtonName("CREËREN")
       return;
     }
 
@@ -27,14 +27,12 @@ export default function NewChatForm({ isOpen, onClose }) {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      // alert(`Chat initialized successfully with thread ID: ${data.thread_id}`);
-      onClose(); // Close the dialog after successful creation
+      onClose(); 
       window.location.reload();
     } else {
       const errorData = await response.json();
       alert(errorData.error || "Failed to initialize chat");
-      setButtonName("CREATE")
+      setButtonName("CREËREN")
     }
   };
 
@@ -46,16 +44,16 @@ export default function NewChatForm({ isOpen, onClose }) {
       />
       <div className="fixed inset-0 flex items-center justify-center">
         <Dialog.Panel className="bg-white p-6 rounded-lg shadow-md w-80">
-          <Dialog.Title className="text-xl font-bold">New Chat</Dialog.Title>
+          <Dialog.Title className="text-xl font-bold">Nieuwe Chat</Dialog.Title>
           <form className="mt-4" onSubmit={createChat}>
             <label className="block mb-2">
-              Chat Name
+            Chatnaam
               <input
                 type="text"
                 value={chatName}
                 onChange={(e) => setChatName(e.target.value)}
                 className="w-full p-2 border rounded mt-1"
-                placeholder="Name your Chat"
+                placeholder="Geef uw chat een naam"
               />
             </label>
 

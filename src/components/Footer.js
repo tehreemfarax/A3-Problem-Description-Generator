@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white py-10 relative">
       {/* Circular Image Overlay */}
-      <div className="absolute -top-24 right-2 transform -translate-x-1/2 z-10 rotate-12">
+      <div className="absolute -top-14 right-2 transform -translate-x-1/2 z-10 rotate-12">
         <img
           src={circular}
           alt="Beste Adviesbureau"

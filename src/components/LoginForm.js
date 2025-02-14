@@ -32,8 +32,7 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
         // Save token to localStorage
         sessionStorage.setItem("updToken", token);
 
-        setSuccessMessage("Login successful!");
-        // alert("Login successful!");
+        setSuccessMessage("Inloggen succesvol!");
         onClose();
         window.location.reload();
       } else {
@@ -56,31 +55,31 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
           <Dialog.Title className="text-xl font-bold">Log In</Dialog.Title>
           <form className="mt-4" onSubmit={handleLogin}>
             <label className="block mb-2">
-              Email
+              E-mail
               <input
                 type="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border rounded mt-1"
-                placeholder="Enter your email"
+                placeholder="Voer uw e-mailadres in"
               />
             </label>
             <label className="block mb-4">
-              Password
+            Wachtwoord
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 border rounded mt-1"
-                placeholder="Enter your password"
+                placeholder="Voer uw wachtwoord in"
               />
             </label>
             <button
               type="submit"
               className="w-full bg-customblue text-white p-2 rounded font-bold"
             >
-              Log In
+              Inloggen
             </button>
           </form>
           {errorMessage && (
@@ -89,13 +88,13 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
           {successMessage && (
             <p className="mt-4 text-green-500 text-sm">{successMessage}</p>
           )}
-          <div className="flex justify-between p-4 pb-0 pt-2">
-            <span>Don't have an account? </span>
+          <div className="flex justify-between p-1 pb-0 pt-4">
+            <span>Heeft u geen account? </span>
             <button
               onClick={handleSignupOpen}
               className="bg-white text-customblue font-bold"
             >
-              SIGN UP
+              AANMELDEN
             </button>
           </div>
         </Dialog.Panel>
