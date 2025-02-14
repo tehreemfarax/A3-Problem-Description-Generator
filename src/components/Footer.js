@@ -9,7 +9,6 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-10 relative">
-      {/* Circular Image Overlay */}
       <div className="absolute -top-14 right-2 transform -translate-x-1/2 z-10 rotate-12">
         <img
           src={circular}
@@ -19,7 +18,6 @@ export default function Footer() {
       </div>
 
       <div className="container mx-auto flex lg:flex-row flex-col justify-between items-start gap-10 px-6 text-left">
-        {/* UPD Section */}
         <div>
           <h3 className="text-xl font-semibold mb-4">UPD</h3>
           <p>Rijksstraatweg 115</p>
@@ -28,7 +26,6 @@ export default function Footer() {
           <p>contact@upd.nl</p>
         </div>
 
-        {/* Information Section */}
         <div>
           <h3 className="text-xl font-semibold mb-4">Informatie</h3>
           <ul className="space-y-2">
@@ -65,7 +62,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Follow Us Section */}
         <div>
           <h3 className="text-xl font-semibold mb-4">Volg ons...</h3>
           <div className="flex items-center space-x-4">
@@ -95,7 +91,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Images Section */}
         <div className="my-auto pt-20">
           <div className="flex flex-row">
             <a href="#">

@@ -43,7 +43,7 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
       if (response.ok) {
         const data = await response.json();
         setSuccessMessage(data.message);
-        onClose(); 
+        onClose();
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.error || "Signup failed");
@@ -65,10 +65,9 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
           <Dialog.Title className="text-xl font-bold">Sign Up</Dialog.Title>
           <form className="mt-4" onSubmit={handleSubmit}>
             <div className="flex flex-wrap -mx-2">
-              {/* First Name */}
               <div className="w-1/2 px-2">
                 <label className="block">
-                Voornaam
+                  Voornaam
                   <input
                     type="text"
                     name="first_name"
@@ -79,10 +78,9 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                   />
                 </label>
               </div>
-              {/* Last Name */}
               <div className="w-1/2 px-2">
                 <label className="block">
-                Achternaam
+                  Achternaam
                   <input
                     type="text"
                     name="last_name"
@@ -93,10 +91,9 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                   />
                 </label>
               </div>
-              {/* Email */}
               <div className="w-1/2 px-2 mt-4">
                 <label className="block">
-                E-mail
+                  E-mail
                   <input
                     type="email"
                     name="email"
@@ -107,10 +104,9 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                   />
                 </label>
               </div>
-              {/* Password */}
               <div className="w-1/2 px-2 mt-4">
                 <label className="block">
-                Wachtwoord
+                  Wachtwoord
                   <input
                     type="password"
                     name="password"
@@ -121,10 +117,9 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                   />
                 </label>
               </div>
-              {/* Phone Number */}
               <div className="w-1/2 px-2 mt-4">
                 <label className="block">
-                Telefoonnummer
+                  Telefoonnummer
                   <input
                     type="text"
                     name="phone_number"
@@ -135,7 +130,6 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                   />
                 </label>
               </div>
-              {/* Country */}
               <div className="w-1/2 px-2 mt-4">
                 <label className="block">
                   Country
@@ -150,7 +144,6 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
                 </label>
               </div>
             </div>
-            {/* Submit Button */}
             <div className="mt-6">
               <button
                 type="submit"

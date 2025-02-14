@@ -3,17 +3,17 @@ import { useState } from "react";
 
 export default function NewChatForm({ isOpen, onClose }) {
   const [chatName, setChatName] = useState("");
-  const [buttonName, setButtonName] = useState("CREATE")
+  const [buttonName, setButtonName] = useState("CREATE");
 
   const createChat = async (event) => {
-    setButtonName("Chat maken...")
-    event.preventDefault(); // Prevent default form submission
+    setButtonName("Chat maken...");
+    event.preventDefault();
     console.log(chatName);
-    const token = sessionStorage.getItem("updToken"); // Retrieve the token from sessionStorage
+    const token = sessionStorage.getItem("updToken");
     console.log(token);
     if (!token) {
       alert("Gebruiker is niet geverifieerd.");
-      setButtonName("CREËREN")
+      setButtonName("CREËREN");
       return;
     }
 
@@ -21,18 +21,18 @@ export default function NewChatForm({ isOpen, onClose }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Attach the JWT token in the Authorization header
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ chat_name: chatName }), // Pass the chat name as part of the request body
+      body: JSON.stringify({ chat_name: chatName }),
     });
 
     if (response.ok) {
-      onClose(); 
+      onClose();
       window.location.reload();
     } else {
       const errorData = await response.json();
       alert(errorData.error || "Failed to initialize chat");
-      setButtonName("CREËREN")
+      setButtonName("CREËREN");
     }
   };
 
@@ -47,7 +47,7 @@ export default function NewChatForm({ isOpen, onClose }) {
           <Dialog.Title className="text-xl font-bold">Nieuwe Chat</Dialog.Title>
           <form className="mt-4" onSubmit={createChat}>
             <label className="block mb-2">
-            Chatnaam
+              Chatnaam
               <input
                 type="text"
                 value={chatName}

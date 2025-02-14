@@ -40,7 +40,7 @@ export default function Navbar() {
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
           >
             <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="h-6 w-6" />
+            <Bars3Icon aria-hidden="true" className="h-6 w-6 text-white" />
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12 text-sm/6 text-white"></div>
@@ -50,7 +50,7 @@ export default function Navbar() {
               onClick={() => setIsLoginOpen(true)}
               className="text-sm/6 font-extrabold text-customyellow"
             >
-             INLOGGEN
+              INLOGGEN
             </button>
             <button
               onClick={() => setIsSignupOpen(true)}

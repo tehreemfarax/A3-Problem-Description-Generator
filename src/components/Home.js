@@ -12,26 +12,25 @@ const Home = () => {
   const [newChatPopUp, setNewChatPopUp] = useState(false);
   const [chatBarOpen, setChatBarOpen] = useState(false);
   const [selectedAssistant, setSelectedAssistant] = useState(0);
-  const chatContainerRef = useRef(null); // Ref for the chat container
+  const chatContainerRef = useRef(null);
 
   const handleInput = (e) => {
-    e.target.style.height = "40px"; // Reset height to default
-    e.target.style.height = `${e.target.scrollHeight}px`; // Expand dynamically
+    e.target.style.height = "40px";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   const assistants = {
-    Default: 0,
-    "Problem Description": 1,
-    "Current State": 2,
-    Goal: 3,
-    "Root Causes": 4,
-    Countermeasures: 5,
-    "Implementation Plan": 6,
+    Standaard: 0,
+    Probleemsituatie: 1,
+    "Huidige Situatie": 2,
+    Doelstelling: 3,
+    Bronoorzaken: 4,
+    Tegenmaatregelen: 5,
+    Implementatieplan: 6,
     Control: 7,
-    Sustain: 8,
+    "Borging / Standaardisatie": 8,
   };
 
-  // Function to scroll the chat container to the bottom
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
@@ -39,7 +38,6 @@ const Home = () => {
     }
   };
 
-  // Scroll to bottom whenever messages change or activeChat changes
   useEffect(() => {
     scrollToBottom();
   }, [messages, activeChat]);
@@ -72,7 +70,6 @@ const Home = () => {
       const data = await response.json();
       const fetchedMessages = data.user_message;
 
-      // Process the messages to alternate between bot and user messages
       const processedMessages = fetchedMessages
         .reverse()
         .map((message, index) => ({
@@ -122,7 +119,6 @@ const Home = () => {
         throw new Error(`Failed to fetch CSV: ${errorText}`);
       }
 
-      // Convert response to Blob and create a download link
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -152,10 +148,10 @@ const Home = () => {
       const data = await response.json();
       setChats(
         data.chats.map((chat, index) => ({
-          id: index + 1, // Assign an ID if not provided
+          id: index + 1,
           name: chat.chat_name,
-          step: 0, // Default step value
-          thread_id: chat.thread_id, // Store thread_id if needed
+          step: 0,
+          thread_id: chat.thread_id,
         }))
       );
     } catch (error) {
@@ -185,7 +181,7 @@ const Home = () => {
     const activeChatName = chats.find((chat) => chat.id === activeChat)?.name;
 
     try {
-      console.log(activeChatName);
+      setCurrentMessage("");
       const response = await fetch("http://34.31.251.108:5000/gpt-response", {
         method: "POST",
         headers: {
@@ -205,8 +201,8 @@ const Home = () => {
 
       setMessages((prev) => {
         const updatedMessages = [...(prev[activeChat] || [])];
-        updatedMessages.pop(); // Remove the placeholder message
-        updatedMessages.push({ sender: "bot", text: data.assistant_response }); // Add actual response
+        updatedMessages.pop();
+        updatedMessages.push({ sender: "bot", text: data.assistant_response });
         return { ...prev, [activeChat]: updatedMessages };
       });
     } catch (error) {
@@ -214,7 +210,7 @@ const Home = () => {
 
       setMessages((prev) => {
         const updatedMessages = [...(prev[activeChat] || [])];
-        updatedMessages.pop(); // Remove the placeholder message
+        updatedMessages.pop();
         updatedMessages.push({
           sender: "bot",
           text: "Failed to get a response. Please try again.",
@@ -222,13 +218,10 @@ const Home = () => {
         return { ...prev, [activeChat]: updatedMessages };
       });
     }
-
-    setCurrentMessage(""); // Clear input field
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
       <Dialog
         open={chatBarOpen}
         onClose={() => setChatBarOpen(false)}
@@ -291,7 +284,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Main Chat Area */}
       <div className="flex-1 bg-white flex flex-col">
         <div className="flex justify-between p-4 border-b border-gray-300 bg-gray-100">
           <ChatSharp
@@ -301,7 +293,9 @@ const Home = () => {
           {activeChat ? (
             <h2>{chats.find((chat) => chat.id === activeChat)?.name} </h2>
           ) : (
-            <h2 className="font-semibold capitalize">Selecteer een chat of start een nieuwe</h2>
+            <h2 className="font-semibold capitalize">
+              Selecteer een chat of start een nieuwe
+            </h2>
           )}
           <select
             id="assistantDropdown"
@@ -317,8 +311,8 @@ const Home = () => {
           </select>
         </div>
         <div
-          ref={chatContainerRef} // Attach the ref to the chat container
-          className="flex-1 overflow-y-auto p-4 space-y-4"
+          ref={chatContainerRef}
+          className="flex-1 overflow-y-auto p-4 pl-1 space-y-4"
         >
           {activeChat ? (
             (messages[activeChat] || []).map((msg, index) => (
@@ -335,7 +329,7 @@ const Home = () => {
                 >
                   {msg.sender !== "user" && (
                     <div className="flex items-center justify-center bg-gray-300 rounded-full mr-1">
-                      <img src={logo} className="w-8 h-8 rounded-2xl"/>
+                      <img src={logo} className="w-20 h-8 rounded-2xl lg:w-8" />
                     </div>
                   )}
                   <div

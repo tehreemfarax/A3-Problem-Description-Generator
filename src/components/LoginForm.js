@@ -29,7 +29,6 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
         const data = await response.json();
         const token = data.token;
 
-        // Save token to localStorage
         sessionStorage.setItem("updToken", token);
 
         setSuccessMessage("Inloggen succesvol!");
@@ -66,7 +65,7 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
               />
             </label>
             <label className="block mb-4">
-            Wachtwoord
+              Wachtwoord
               <input
                 type="password"
                 value={password}
