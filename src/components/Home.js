@@ -388,6 +388,7 @@ const Home = () => {
         isOpen={newChatPopUp}
         onClose={() => setNewChatPopUp(false)}
       />
+      
     </div>
   );
 };
