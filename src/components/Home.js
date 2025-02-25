@@ -53,7 +53,7 @@ const Home = () => {
 
     try {
       const token = sessionStorage.getItem("updToken");
-      const response = await fetch("http://34.31.251.108:5000/get-messages", {
+      const response = await fetch("https://vcoach.upd.nl/get-messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const Home = () => {
     try {
       const token = sessionStorage.getItem("updToken");
       const response = await fetch(
-        "http://34.31.251.108:5000/download-chat-csv",
+        "https://vcoach.upd.nl/download-chat-csv",
         {
           method: "POST",
           headers: {
@@ -136,7 +136,7 @@ const Home = () => {
   const fetchChats = async () => {
     try {
       const token = sessionStorage.getItem("updToken");
-      const response = await fetch("http://34.31.251.108:5000/getChats", {
+      const response = await fetch("https://vcoach.upd.nl/getChats", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -182,7 +182,7 @@ const Home = () => {
 
     try {
       setCurrentMessage("");
-      const response = await fetch("http://34.31.251.108:5000/gpt-response", {
+      const response = await fetch("https://vcoach.upd.nl/gpt-response", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
