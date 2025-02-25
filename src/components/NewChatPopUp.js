@@ -8,9 +8,7 @@ export default function NewChatForm({ isOpen, onClose }) {
   const createChat = async (event) => {
     setButtonName("Chat maken...");
     event.preventDefault();
-    console.log(chatName);
     const token = sessionStorage.getItem("updToken");
-    console.log(token);
     if (!token) {
       alert("Gebruiker is niet geverifieerd.");
       setButtonName("CREËREN");
