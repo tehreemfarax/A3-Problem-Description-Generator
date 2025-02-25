@@ -17,7 +17,7 @@ export default function NewChatForm({ isOpen, onClose }) {
       return;
     }
 
-    const response = await fetch("http://34.31.251.108:5000/initializeChat", {
+    const response = await fetch("https://vcoach.upd.nl/initializeChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
