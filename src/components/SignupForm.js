@@ -32,7 +32,7 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
     setSuccessMessage("");
     console.log(JSON.stringify(formData));
     try {
-      const response = await fetch("http://34.31.251.108:5000/signup", {
+      const response = await fetch("https://vcoach.upd.nl/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
