@@ -44,7 +44,7 @@ const Home = () => {
 
   const handleAssistantChange = async (event) => {
     const selectedAssistantValue = event.target.value;
-    console.log(selectedAssistantValue);
+
     setSelectedAssistant(selectedAssistantValue);
 
     if (!activeChat) return;
