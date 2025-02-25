@@ -30,7 +30,7 @@ export default function SignupForm({ isOpen, onClose, onLoginOpen }) {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
-    console.log(JSON.stringify(formData));
+
     try {
       const response = await fetch("https://vcoach.upd.nl/signup", {
         method: "POST",
