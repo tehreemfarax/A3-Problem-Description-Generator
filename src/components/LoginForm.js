@@ -17,7 +17,7 @@ export default function LoginForm({ isOpen, onClose, onSignUpOpen }) {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://34.31.251.108:5000/login", {
+      const response = await fetch("https://vcoach.upd.nl/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
