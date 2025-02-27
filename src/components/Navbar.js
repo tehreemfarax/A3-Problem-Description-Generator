@@ -22,7 +22,7 @@ export default function Navbar() {
     <header className="">
       <nav
         aria-label="Global"
-        className="bg-black sticky top-0 z-40 w-full border-b-2 border-b-customyellow mx-auto flex max-w-7xl items-center justify-between lg:px-8 p-2"
+        className="bg-black sticky top-0 z-40 w-full border-b-2 border-b-customyellow mx-auto flex max-w-full items-center justify-between lg:px-8 p-2"
       >
         <div className="flex flex-1">
           <a href="/" className="flex flex-row align-middle">
