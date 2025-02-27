@@ -163,6 +163,15 @@ const Home = () => {
     fetchChats();
   }, []);
 
+  const formatApiResponse = (response) => {
+    return response
+        .replace(/###\s*(.*?)(?=\d+\.)/g, "<h3>$1</h3>")  // Convert ### Headings to <h3>
+        .replace(/(\d+\.\s*\*\*(.*?)\*\*)/g, "<br><strong>$1</strong>") // Numbered items bold
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Convert **bold** to <strong>
+        .replace(/-\s/g, "<br>&bull; "); // Convert list items
+}
+
+  
   const sendMessage = async () => {
     if (!currentMessage.trim() || !activeChat) return;
 
@@ -199,10 +208,12 @@ const Home = () => {
 
       const data = await response.json();
 
+      const formatted_text = formatApiResoponse(data.assistant_response)
+
       setMessages((prev) => {
         const updatedMessages = [...(prev[activeChat] || [])];
         updatedMessages.pop();
-        updatedMessages.push({ sender: "bot", text: data.assistant_response });
+        updatedMessages.push({ sender: "bot", text: formatted_text });
         return { ...prev, [activeChat]: updatedMessages };
       });
     } catch (error) {
