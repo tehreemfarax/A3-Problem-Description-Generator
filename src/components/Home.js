@@ -163,7 +163,7 @@ const Home = () => {
     fetchChats();
   }, []);
 
-  const formatApiResponse = (response) => {
+function formatApiResponse(response) {
     return response
         .replace(/###\s*(.*?)(?=\d+\.)/g, "<h3>$1</h3>")  // Convert ### Headings to <h3>
         .replace(/(\d+\.\s*\*\*(.*?)\*\*)/g, "<br><strong>$1</strong>") // Numbered items bold
@@ -171,7 +171,6 @@ const Home = () => {
         .replace(/-\s/g, "<br>&bull; "); // Convert list items
 }
 
-  
   const sendMessage = async () => {
     if (!currentMessage.trim() || !activeChat) return;
 
